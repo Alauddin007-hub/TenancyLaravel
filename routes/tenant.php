@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Stancl\Tenancy\Database\Models\Domain;
+use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
+
+/*
+|--------------------------------------------------------------------------
+| Tenant Routes
+|--------------------------------------------------------------------------
+|
+| Here you can register the tenant routes for your application.
+| These routes are loaded by the TenantRouteServiceProvider.
+|
+| Feel free to customize them however you want. Good luck!
+|
+*/
+
+Route::middleware([
+    'web',
+    InitializeTenancyBySubdomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::get('/', function () {
+        // dd(\App\Models\User::all());
+        // return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+        $domain = Domain::where('tenant_id', tenant('id'))->first();
+        $name = $domain->domain;
+        return Inertia::render('TenantDashboard', [
+            'auth' => Auth::user(),
+            'tenantName' => tenant('id'),
+            'tenantDomain' => $name,
+        ]);
+        
+    });
+});

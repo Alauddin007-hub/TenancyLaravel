@@ -10,7 +10,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Stancl\Tenancy\Database\Models\Domain;
-use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +25,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
 
 Route::middleware([
     'web',
-    InitializeTenancyBySubdomain::class,
+    InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::get('/', function () {
@@ -39,6 +38,5 @@ Route::middleware([
             'tenantName' => tenant('id'),
             'tenantDomain' => $name,
         ]);
-        
     });
 });

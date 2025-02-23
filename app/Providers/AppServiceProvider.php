@@ -22,5 +22,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+
+        // $centralDomains = $this->centralDomains();
+        // dd($centralDomains);
+    }
+
+    protected function centralDomains()
+    {
+        return config('tenancy.central_domains');
     }
 }

@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\TenantApp\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TenantApp\ProfileController as TenantAppProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -39,4 +40,16 @@ Route::middleware([
             'tenantDomain' => $name,
         ]);
     });
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('TenantApp/Dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    require __DIR__ . '/tenantApp_auth.php';
 });

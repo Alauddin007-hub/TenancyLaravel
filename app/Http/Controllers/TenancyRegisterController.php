@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +15,9 @@ class TenancyRegisterController extends Controller
      */
     public function index()
     {
-        return "Hello";
+        $tenants = Tenant::with('domains')->get();
+        // dd($tenant->toArray());
+        return Inertia::render('Client/Index', $tenants);
     }
 
     /**
@@ -22,7 +25,7 @@ class TenancyRegisterController extends Controller
      */
     public function create()
     {
-        return Inertia::render('TenancyRegister');
+        return Inertia::render('Client/TenancyRegister');
     }
 
     /**

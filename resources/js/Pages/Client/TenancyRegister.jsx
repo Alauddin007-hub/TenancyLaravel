@@ -18,14 +18,14 @@ export default function TenancyRegister() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route(' tenancy.store '), {
+        post(route('tenancy.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title="Add Tenant" />
 
             <form onSubmit={submit}>
                 <div>

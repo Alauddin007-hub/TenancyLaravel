@@ -17,11 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('userType')->default(1)->comment('0=SuperAdmin, 1=Admin, 2=Employee');
-            
-            // $table->bigInteger('admin_id')->nullable();
-            // $table->bigInteger('package_id')->nullable();
-            // $table->date('expire_date')->nullable();
+            $table->integer('userType')->default(1)->comment('1=Admin, 2=Employee');
             $table->string('image')->nullable();
             $table->boolean('status')->default(0);
             $table->integer('created_by')->nullable();

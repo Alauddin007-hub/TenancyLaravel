@@ -55,5 +55,5 @@ Route::middleware([
             Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         });
 
-    // require __DIR__ . '/tenantApp_auth.php';
+    require __DIR__ . '/tenantApp_auth.php';
 });

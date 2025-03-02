@@ -3,7 +3,9 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
 
 export default function Index() {
-    const { tenants = [] } = usePage().props;
+    const { tenants } = usePage().props;
+
+    // console.log(tenants);
 
     return (
         <AuthenticatedLayout
@@ -32,6 +34,9 @@ export default function Index() {
                                             </th>
                                             <th className="py-3 px-6 text-left text-gray-700 font-semibold">
                                                 Company Name
+                                            </th>
+                                            <th className="py-3 px-6 text-left text-gray-700 font-semibold">
+                                                Name
                                             </th>
                                             <th className="py-3 px-6 text-left text-gray-700 font-semibold">
                                                 Email
@@ -79,10 +84,13 @@ export default function Index() {
                                                         {tenant.company_name}
                                                     </td>
                                                     <td className="py-4 px-6">
+                                                        {tenant.name}
+                                                    </td>
+                                                    <td className="py-4 px-6">
                                                         {tenant.email}
                                                     </td>
                                                     <td className="py-4 px-6">
-                                                        {tenant.domains}
+                                                        {tenant.domain}
                                                     </td>
                                                     <td className="py-4 px-6 text-center">
                                                         <LinkButton
@@ -109,11 +117,15 @@ export default function Index() {
                                             ))
                                         ) : (
                                             <tr>
-                                                <td
-                                                    colSpan="5"
-                                                    className="py-4 px-6 text-center text-gray-500"
-                                                >
-                                                    No tenants found.
+                                                <td className="py-4 px-6">
+                                                    {tenants.domains.length > 0
+                                                        ? tenants.domains
+                                                              .map(
+                                                                  (domain) =>
+                                                                      domain.domain
+                                                              )
+                                                              .join(", ")
+                                                        : "No domain assigned"}
                                                 </td>
                                             </tr>
                                         )}

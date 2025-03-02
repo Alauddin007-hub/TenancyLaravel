@@ -7,7 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function TenancyRegister() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        companyName: '',
+        company_name: '',
         domain: '',
         name: '',
         email: '',
@@ -29,20 +29,20 @@ export default function TenancyRegister() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="companyName" value="Company Name" />
+                    <InputLabel htmlFor="company_name" value="Company Name" />
 
                     <TextInput
-                        id="companyName"
-                        name="companyName"
-                        value={data.companyName}
+                        id="company_name"
+                        name="company_name"
+                        value={data.company_name}
                         className="mt-1 block w-full"
-                        autoComplete="companyName"
+                        autoComplete="company_name"
                         isFocused={true}
-                        onChange={(e) => setData('companyName', e.target.value)}
+                        onChange={(e) => setData('company_name', e.target.value)}
                         required
                     />
 
-                    <InputError message={errors.companyName} className="mt-2" />
+                    <InputError message={errors.company_name} className="mt-2" />
                 </div>
                 <div>
                     <InputLabel htmlFor="domain" value="Domain" />
@@ -61,7 +61,7 @@ export default function TenancyRegister() {
                     <InputError message={errors.domain} className="mt-2" />
                 </div>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="name" />
 
                     <TextInput
                         id="name"
@@ -86,7 +86,7 @@ export default function TenancyRegister() {
                         name="email"
                         value={data.email}
                         className="mt-1 block w-full"
-                        autoComplete="username"
+                        autoComplete="email"
                         onChange={(e) => setData('email', e.target.value)}
                         required
                     />
